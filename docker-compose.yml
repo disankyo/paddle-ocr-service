@@ -1,0 +1,24 @@
+# PaddleOCR 识别服务（独立部署，供 UltimateConverter 的 PDF OCR 调用）
+#
+# 使用：
+#   docker compose up -d
+# 默认容器内监听 8000；Java 侧通过 converter.paddle-ocr.service-url 指向本服务
+#   同 compose 网络：http://paddle-ocr:8000
+#   宿主机直连：http://127.0.0.1:8008（见下方端口映射）
+#
+# 如需 GPU，将 Dockerfile 的 paddlepaddle 换成 paddlepaddle-gpu 对应版本并改用 nvidia/cuda 基础镜像。
+services:
+  paddle-ocr:
+    build: .
+    image: ultimate-converter/paddle-ocr:latest
+    container_name: paddle-ocr
+    ports:
+      # 宿主机 8008 → 容器 8000（宿主机 8000 常被本机打印/其它服务占用，故映射到 8008）
+      - "8008:8000"
+    volumes:
+      # 缓存 PaddleOCR 模型，避免每次重建镜像重复下载
+      - paddle-models:/root/.paddleocr
+    restart: unless-stopped
+
+volumes:
+  paddle-models:

@@ -1,0 +1,10 @@
+# PaddleOCR HTTP 服务依赖
+# 说明：paddlepaddle / paddleocr 的版本需相互匹配；当前按 Python 3.11/3.13 + Paddle 3.x 验证。
+paddlepaddle==3.3.1
+paddleocr==3.7.0
+fastapi
+uvicorn[standard]
+python-multipart
+opencv-python-headless
+Pillow
+numpy<2.4

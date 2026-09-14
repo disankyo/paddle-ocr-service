@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Logs
+*.log
+
+# 生成的测试产物（保留 make_test_pdf.py 脚本即可复现）
+_e2e/*.pdf
+_e2e/*.png
