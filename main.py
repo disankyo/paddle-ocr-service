@@ -200,4 +200,6 @@ def ocr_endpoint(image: UploadFile = File(...), lang: str = Form("ch")):
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app, host="0.0.0.0", port=8000, workers=1)
+    # 直接 `python main.py` 运行时使用；端口默认 8008（避开本机 8000 常被打印服务等占用），
+    # 并绑 127.0.0.1 避免 localhost 走 IPv6 ::1 命中别的服务。
+    uvicorn.run(app, host="127.0.0.1", port=int(os.environ.get("OCR_PORT", "8008")), workers=1)
